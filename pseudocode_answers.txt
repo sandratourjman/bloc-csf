@@ -1,0 +1,42 @@
+1. Create a function that takes two numbers and prints out the greater number.
+Input first number
+Input second number
+If first number is greater than or equal to second number
+	print first number
+Else
+	print second number
+
+2. Create a function that prints out the numbers from 1 to 100.
+
+Initial number is 1
+While number is less than or each to 100
+Print number
+Increment initial number by 1
+
+
+
+3. Create a function that searches for a specific entry in a phonebook.
+
+Create array of phone numbers called phonebook
+Input phoneNumber to function
+Check if phoneNumber is in phonebook
+If true, return true
+else, return false
+
+
+
+4. Using the pseudocode you wrote for the previous question, implement it in any computer language of your choice.
+
+// create phonebook of numbers
+const phonebook = ['1234567890', '5556742353', '8005551234','7735176287'];
+
+function searchPhoneBook(phoneNumber) {
+  if (phonebook.indexOf(phoneNumber) > -1) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+searchPhoneBook('7735176287'); // returns true
+searchPhoneBook('8005123213'); // returns false
