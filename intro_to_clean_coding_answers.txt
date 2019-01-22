@@ -1,0 +1,148 @@
+Exercises:
+
+1. In your own words, explain what clean code is and why it is important.
+
+A: Clean code is the development of code that is easy to read, write, update, and maintain. It follows several types of methods such as the DRY method and Self-documenting code.
+
+2. Read this article about Toyota and their use of bad code. Although you may not yet understand all of the topics discussed, think about another commonly used object that relies on computers and explain what would happen if the code was not created to an acceptable standard.
+
+A: If code is not created to an acceptable standard, it will cause issues in performance and may cause unexpected results. One example of an everyday object that relies on computers is the modern elevators. When you press the button, you expect the lift to come to your floor. The sensors detect if a person or something is blocked the doorway. If this was programmed correctly, the door could close and crush someone. 
+
+3: Would you consider the following to be clean code? Explain why or why not. If not, refactor the code.
+
+FUNCTION do(x, y)              // Creating a new function
+ IF y = "F" THEN               // Check if y is equal "F"
+ SET z to (x−32) * (5/9)       // Formula to convert degrees fahrenheit to celsius
+ PRINT z                       // Print result
+ ELSE IF y = "C" THEN          // If y not equal to "F", check if equal to "C"
+ SET z to x * 1.8000 + 32.00   // Formula to convert degrees celsius to fahrenheit
+ PRINT z                       // Print result
+ END IF
+END FUNCTION
+
+A: This is not clean code because of the duplicate print lines. It also doesn't take into account if y isn't "F" or "C"
+
+FUNCTION do(x,y)
+ SET z to 0
+ if y  = "F" THEN
+ SET z to (x−32) * (5/9) fahrenheit to celsius
+ ELSE IF y = "C" THEN
+ SET z to x * 1.8000 + 32.00 to fahrenheit
+ ELSE 
+ PRINT "You must enter F or C"
+ PRINT z
+ END IF
+END FUNCTION
+
+4. Would you consider the following to be clean code? Explain why or why not. If not, refactor the code.
+
+FUNCTION calcPercent(sum, total)
+ IF NOT(total = 0) THEN
+     SET percentage to sum / total * 100
+ ELSE
+   PRINT "Sorry, cannot divide by 0"
+ END IF
+
+ PRINT percentage
+END FUNCTION
+
+A: I would not refactor this code because it is DRY. There is no repitition and the code adheres to the single responsibility principle. 
+
+5. Using pseudocode, refactor the code for the following examples using the principles you have learned in this checkpoint.
+
+5A: 
+
+FUNCTION checkOutCustomer(subTotal, discountRate, paymentType)
+   PRINT "Your total due is: " + subTotal * discountRate + (subTotal * tax)
+   CALL getPayment RETURNING amount
+
+   IF paymentType = 'CASH' THEN
+       PRINT "Change due: " + amount - subTotal * discountRate + (subTotal * tax)
+   ELSE IF paymentType = 'CREDIT CARD' THEN
+       PRINT "Your credit card has been charged: " + subTotal * discountRate + (subTotal * tax)
+   END IF
+END FUNCTION
+
+5B:  The following function checks out a book if there are no issues with the guest's account.
+
+FUNCTION checkoutBook(book, guest)
+	IF guest.outstandingFees > 0 THEN
+		PRINT guest + "has outstanding fees"
+	ELSE IF guest.hasOverdueBooks THEN
+		PRINT guest + "has overdue books."
+	ELSE IF guest.accountActive THEN
+		APPEND book to guest.books
+        SET book.status to "Checked Out"
+        PRINT "Your books have been issued."
+    ELSE 
+    	PRINT "Account not active"
+    END IF
+END FUNCTION
+
+5C. The following class is a code snippet that should support the transactions a customer can perform at an ATM.
+
+CLASS BankAccount
+
+ FUNCTION displayBalance
+    PRINT balance
+ END FUNCTION
+
+ FUNCTION deposit(amount)
+    SET balance to balance + amount
+ END FUNCTION
+
+ FUNCTION withdraw(amount)
+     IF balance > amount THEN
+       SET balance to balance - amount
+     END
+ END FUNCTION
+
+CLASS Offers 
+
+ FUNCTION creditCardOffer
+     IF NOT(customer.hasCreditCard) THEN
+         CALL offerCreditCard
+     END
+ END FUNCTION
+
+ FUNCTION checkStatus
+     IF NOT(customer.hasCheckingAccount) THEN
+         CALL offerCheckingAccount
+     END
+ END FUNCTION
+
+ ....
+ ....
+ ....
+
+END
+
+Programming Questions
+You may do the following problems in any language of your choice. Use the clean code principles taught in this section while writing the code.
+
+6. Square Given an array of integers, find out whether the sum of the integers is a perfect square. If it is a perfect square, return the square root, otherwise return the sum.
+
+function checkPerfectSquares(array) {
+	let sum = array.reduce((a,b) => a + b);
+	let squareRoot = Math.sqrt(sum);
+
+	if (squareRoot % Math.floor(squareRoot) === 0) {
+		return squareRoot;
+	} else {
+		return sum;
+	}
+}
+
+function hasDuplicates(array) {
+	if (new Set(array).size == array.length) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+
+
+
+
