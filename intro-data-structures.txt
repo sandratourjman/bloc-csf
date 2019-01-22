@@ -16,22 +16,35 @@ f) If Patrick wants to leave the line, how would you delete him from the array?
 
 a. let arr =  ["Vivian", "Ava", "Josh", "Patrick", "Mike"];
 b. arr.push("Mary");
-c. function findJosh() {
-	return arr.indexOf("Josh");
+c. function findPersonIndex(name) {
+	return arr.indexOf(name);
 }
 
-d. function findEmily() {
-	if(arr.includes('Emily')) {
-		return arr.indexOf('Emily');
+findPersonIndex("Josh");
+
+
+d. function findPerson(name) {
+	if(arr.includes(name)) {
+      let indexOfPerson = arr.indexOf(name);
+		return (name + " found at index of " + indexOfPerson);
 	} else {
-		return "Emily not found";
+		return (name + " not found");
 	}
+}
+
+findPerson("Emily");
 
 
 e. arr.splice(1,0, "Melissa");
 
 
-f. arr.splice(3,1);
+f. function leaveLine(person) {
+	let indexOfPersonLeaving = arr.indexOf(person);
+    arr.splice(indexOfPersonLeaving, 1);
+	return arr;
+} 
+
+leaveLine("Patrick");
 
 2. Provide another real-world example that you can model using a data structure.
 
@@ -41,4 +54,4 @@ let books = ["Harry Potter series", "The Giver", "Gone with the Wind", "Pride an
 
 3. How would your data structure allow developers to access and manipulate the data?
 
-A: Developers can access the data by the values or the index of specific values. You can add or remove books as they get added to your shelf. You can shift books, pop off the last item on the shelf, search to see if a new book is already in your collection, reorder the books alphabetically, etc. 
+A: Developers can access the data by the values or the index of specific values. If a developer doesn't know the index of the book and wants to find one without looping through, they could use the find method, or even filter the array by including part of the name. You can add or remove books as they get added to your shelf. You can shift books, pop off the last item on the shelf, search to see if a new book is already in your collection, reorder the books alphabetically, etc. 
