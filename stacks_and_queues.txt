@@ -1,0 +1,77 @@
+1. What is the main difference between a stack and a queue?
+
+A: The main difference between a stack and a queue is the ways entries are prioritized. Stacks are LIFO (last-in-first-out) and Queues are FIFO (first-in-first-out).
+
+2: What are the similarities between stacks and queues?
+
+A: The similiarities between stacks and queues is that you can only access the information from one end of either; you can't access an element in the middle of a stack or queue.
+
+3. Imagine you are an engineer tasked with implementing the UNDO and REDO options in a word processor such as Microsoft Word. Which data structure would you use for each option and why?
+
+A: For the UNDO and REDO options, I would use a stack. As you add more and more actions to the stack, if you want to undo your last action (or remove it from the stack) it would be the last item that was added to the stack. Since stacks are prioritized by LIFO, the last item on the stack would be the first one out. That item that you UNDO last gets added to the REDO stack. As you keep undoing, each event/option gets added to the redo stack. When you want to redo, you remove the last option that was added to the redo stack. 
+
+
+Programming Questions
+You may program the following question in any language of your choice. Before you begin coding, write out a plan as to how you will solve the question.
+
+1: Given a string, reverse it using a stack. For example, the string "Bloc!" should be converted to "!colB".
+
+A: 
+function reverseString(string) {
+  let splitArray = string.split("").reverse().join("");
+  return splitArray;
+}
+
+m
+reverseString("Hello!");
+
+// output: !olleH
+
+
+2: Implement the pop method of a stack using one queue. Make a FIFO data structure mirror the functionality of a LIFO data structure. Since the internal list is not the same as defined in the checkpoint, it may help to rewrite the pseudocode first.
+
+let arr1 = ["one","two","three","four","five","six"];
+
+// implement pop method of stack on queue
+function popQueue(arr){
+  let arrTemp = [];
+  let arrayLastIndex = arr.length -1;
+  for (let i = 0; i < arrayLastIndex; i++){
+    arrTemp.push(arr.shift());
+  }
+ return arrTemp;
+}
+
+popQueue(arr1);
+
+3. Implement the enqueue and dequeue methods defined in the checkpoint inside your own Queue class.
+
+class Queue {
+	constructor() {
+		this.elements = []
+	}
+
+	enqueue(element) {
+		this.elements.push(element);
+	}
+
+	dequeue() {
+		if(this.elements.length !== 0) {
+			return this.elements.shift();
+		} else {
+			return "Array is empty";
+		}
+		
+	}
+}
+
+let queue = new Queue();
+
+queue.enqueue(10);
+queue.enqueue(30);
+queue.enqueue(50);
+console.log(queue);
+
+queue.dequeue();
+console.log(queue);
+
