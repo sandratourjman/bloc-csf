@@ -18,11 +18,14 @@ You may program the following question in any language of your choice. Before yo
 
 A: 
 function reverseString(string) {
-  let splitArray = string.split("").reverse().join("");
-  return splitArray;
+  let splitArray = string.split(""), temp = [];
+  for (let i = splitArray.length -1; i >= 0; i--) {
+    temp.push(splitArray[i]);
+  }
+  return temp.join("");
+  
 }
 
-m
 reverseString("Hello!");
 
 // output: !olleH
@@ -30,19 +33,23 @@ reverseString("Hello!");
 
 2: Implement the pop method of a stack using one queue. Make a FIFO data structure mirror the functionality of a LIFO data structure. Since the internal list is not the same as defined in the checkpoint, it may help to rewrite the pseudocode first.
 
-let arr1 = ["one","two","three","four","five","six"];
+let queue = ["one","two","three","four","five","six"];
 
 // implement pop method of stack on queue
-function popQueue(arr){
-  let arrTemp = [];
-  let arrayLastIndex = arr.length -1;
-  for (let i = 0; i < arrayLastIndex; i++){
-    arrTemp.push(arr.shift());
+function popQueue(queue){
+  let lastIndex = queue.length;
+
+  for (let i = 0; i < queue.length-1 ; i++) {
+    let shiftToEnd = queue.shift();
+    queue.push(shiftToEnd);
+    //console.log(queue);
   }
- return arrTemp;
+  let popped = queue.shift();
+  console.log(popped);
 }
 
-popQueue(arr1);
+popQueue(queue);
+
 
 3. Implement the enqueue and dequeue methods defined in the checkpoint inside your own Queue class.
 
@@ -56,8 +63,10 @@ class Queue {
 	}
 
 	dequeue() {
+		let temp = this.elements[0];
 		if(this.elements.length !== 0) {
-			return this.elements.shift();
+			this.elements.shift();
+			return temp;
 		} else {
 			return "Array is empty";
 		}
