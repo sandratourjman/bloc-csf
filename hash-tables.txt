@@ -1,0 +1,220 @@
+### Exercises
+
+> 1. What is a hash table?
+
+A: A hash table is a computer science data structure that stores values in a table by linking it to a key, forming a key-value pair similiar to JavaScript objects. Each key in the hash table must be unique; therefore you can retrieve a particular value by looking up it's key. 
+
+
+> 2. What is hashing?
+
+A: Hashing is a process of converting a string key into a numerical index. A hashing function is used to convert the string value to a fixed-length number, called a hash code. When a hash code is interepted as an integer, that number is often very large and not suitable to be used as an index right off the bat. The final task of a a hashing function is to determine the true index of each element by modding (%) the output of the hashing function with its capactiy, k. 
+
+
+> 3. How does a hash table store data?
+
+A: A hash table stores data in the following steps. 1) Take the `Key`. 2) Convert the `Key` to a `Hash Code` using a `Hashing Function`. 3) Mod the `Hash Code` to get an `Array Index`. 4) Store the `Value` in the `Array Index`. 
+
+
+> 4. How are hash tables and objects different?
+
+A: Hash tables, like arrays, are intended to be used as collections of similiar data. You would use them to store data that is queryable by an indentifer, a key. You could use a hash table to store a collection of students in a school, with the student's ID being the unique identifer. An object holds potentially different types of data that are bundled together. In the student example, you could have student objects and each object can have strings, booleans, number values, etc. 
+
+
+> 5. Determine whether you would use a hash table or an object to store each of the following pieces of data:
+
++ A list of pets and their unique names.
+ 	- Hash table
++ The name, age, and the birthday of your best friend.
+ 	- Object
++ The name and location of every company in a given city.
+ 	- Hash table
++ All of the books checked out from a library by a particular individual.
+ 	- Hash table
++ The primary and secondary phone numbers for a contact.
+ 	- object
+
+> 6. Build a system that allows a sales associate to enter a customer's name, address, and phone number into the system and look up customers using their phone numbers. Store this information in a hash table.
+
+A: 
+
+// Modeled from the following gist:
+// https://gist.github.com/alexhawkins/48d7fd31af6ed00e5c60
+
+var makeHashTable = function(max) {
+    var storage = [],
+        hashTableMethods = {
+
+            createHashIndex: function(key) {
+                var hash = 0;
+                for (var i = 0; i < key.length; i++) {
+                    hash = (hash << 5) - hash + key.charCodeAt(i);
+                    hash = hash >>> 0;
+                }
+                // console.log(Math.abs(hash % max)); 
+                return Math.abs(hash % max);
+            },
+
+            insertCustomer: function(key, value) {
+                if (key === undefined || value === undefined || key.length === 0 || value.length === 0)
+                    throw ('Insertion of undefined not possible')
+                else {
+                    var hashIndex = this.createHashIndex(key);
+                    storage[hashIndex] = value;
+                }
+                return this;
+            },
+
+            retrieveCustomer: function(key) {
+                var hashIndex = this.createHashIndex(key);
+                return key + ': ' + storage[hashIndex];
+            },
+
+        };
+
+    return hashTableMethods;
+};
+
+var customers = {
+  1234567890: ['John Doe', '123 Main St'],
+  1111111111: ['Jane Bass', '456 Circle Blvd'],
+  2222222222: ['Karen Jones', '789 Table Ct'],
+  3333333333: ['Mike Smith', '198 N West Rd'],
+  4444444444: ['Jacki White', '872 Apple Dr'],
+  5555555555: ['Frank Ocean', '2381 Orange St'],
+};
+
+var customersHashTable = makeHashTable(10000);
+
+for (var key in customers) {
+    customersHashTable.insertCustomer(key, customers[key]);
+}
+
+console.log(customersHashTable.retrieveCustomer('5555555555'));
+// Output: "5555555555: Frank Ocean,2381 Orange St"
+console.log(customersHashTable.retrieveCustomer('2222222222'));
+// Output: "2222222222: Karen Jones,789 Table Ct"
+
+
+
+> 7. Build a system that allows a store owner to track their store's inventory using a hash table for storage.
+
+A: 
+
+var makeHashTable = function(max) {
+    var storage = [],
+        hashTableMethods = {
+
+            createHashIndex: function(key) {
+                var hash = 0;
+                for (var i = 0; i < key.length; i++) {
+                    hash = (hash << 5) - hash + key.charCodeAt(i);
+                    hash = hash >>> 0;
+                }
+                // console.log(Math.abs(hash % max)); 
+                return Math.abs(hash % max);
+            },
+
+            add: function(key, value) {
+                if (key === undefined || value === undefined || key.length === 0 || value.length === 0)
+                    throw ('Insertion of undefined not possible')
+                else {
+                    var hashIndex = this.createHashIndex(key);
+                    storage[hashIndex] = value;
+                }
+                return this;
+            },
+
+            search: function(key) {
+                var hashIndex = this.createHashIndex(key);
+                return key + ': ' + storage[hashIndex];
+            },
+
+        };
+
+    return hashTableMethods;
+};
+
+
+// store owner would look up item by product id
+// values stored in array with product name and quantity
+var inventory = {
+  12: ['Bananas', '140'],
+  34: ['Apples', '75'],
+  76: ['Oranges', '100'],
+  87: ['Paper towels', '90'],
+  7: ['Plastic forks', '287'],
+  1: ['Chicken Noodle Soup', '60'],
+};
+
+
+var inventoryHashTable = makeHashTable(10000);
+
+for (var key in inventory) {
+    inventoryHashTable.add(key, inventory[key]);
+}
+
+console.log(inventoryHashTable.find('12'));
+// Output: "12: Bananas,140"
+console.log(inventoryHashTable.find('1'));
+// Output: "1: Chicken Noodle Soup,60"
+
+
+
+> 8. Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date. Use hash tables to store the necessary data.
+
+A: 
+
+var makeHashTable = function(max) {
+    var storage = [],
+        hashTableMethods = {
+
+            createHashIndex: function(key) {
+                var hash = 0;
+                for (var i = 0; i < key.length; i++) {
+                    hash = (hash << 5) - hash + key.charCodeAt(i);
+                    hash = hash >>> 0;
+                }
+                // console.log(Math.abs(hash % max)); 
+                return Math.abs(hash % max);
+            },
+
+            add: function(pub, pubDate) {
+                if (pub === undefined || pubDate === undefined || pub.length === 0 || pubDate.length === 0)
+                    throw ('Insertion of undefined not possible')
+                else {
+                    var key = pub + pubDate;
+                    var hashIndex = this.createHashIndex(key);
+                    storage[hashIndex] = [pub, pubDate];
+                }
+                return this;
+            },
+
+            find: function(pub, pubDate) {
+                var key = pub + pubDate;
+                var hashIndex = this.createHashIndex(key);
+                if (storage[hashIndex] === undefined) {
+                  return "No results were found.";
+                } else {
+                  return storage[hashIndex];
+                }
+            },
+
+        };
+    return hashTableMethods;
+};
+
+var newspapersHashTable = makeHashTable(10000);
+
+newspapersHashTable.add("USA Today","January 24, 2019");
+newspapersHashTable.add("Sun Times","October 1, 1974");
+newspapersHashTable.add("Chicago Tribune","September 26, 1991");
+newspapersHashTable.add("Daily Herald","May 4, 2001");
+
+
+console.log(newspapersHashTable.find("Chicago Tribune","September 26, 1991"));
+// Output: ["Chicago Tribune", "September 26, 1991"]
+
+console.log(newspapersHashTable.find("Chicago Tribune","September 1, 1991"));
+// Output: "No results were found."
+
+
