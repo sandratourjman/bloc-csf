@@ -1,0 +1,262 @@
+### Exercises
+
+> 1. What is a binary tree and what makes it unique to other trees?
+
+
+A:  A binary tree is a specifc tree structure. What makes it unique is that each node can have at most 2 children nodes, which are referred to as the left child and right child. Other trees do not follow this requirement and can as many nodes as needed. 
+
+
+> 2. What is a heuristic?
+
+A: A heuristic is 'best or educated guess' made by software engineers to solve a complex problem quicker by sacrificing accuracy. 
+
+> 3. What is another problem besides the shortest-path problem that requires the use of heuristics?
+
+A: Another problem besides the shortest-path problem that requires the use of heuristics antivirus software used for detecting viruses or other forms of malware. The heuristic scanning looks for code or patterns that are common to a family of viruses. If a file is found to match that code pattern, the scanning infers that the file is infected.
+
+
+> 4. What is the difference between a depth-first search and a breadth-first search?
+
+A: Depth-first search(DFS) and breath-first search(BFS) are both algorithms for traversing or searching a tree or graph data structre. DFS starts at the root and traverses a far as possible along each branch before backtracking. BFS starts at the root node and traverses horizonatally before moving to the next level of nodes. 
+
+
+> 5. Explain in your own words what an undirected, a-cyclic, unweighted graph is.
+
+A: It is a graph that connects nodes in an order that doesn't matter (no clear start or end, merely just a connector), does not loop, and does not assign a cost of travel between nodes (edges are not more or less expensive).
+
+
+> 6. What kind of graph is a binary search tree?
+
+A: A binary search tree is a directed, a-cyclic, unweighted graph. 
+
+### Programming Questions
+
+> 1. Given a Binary Search Tree and a value, write a function that checks to see whether the value exists within the tree.
+
+Example: The value 10 exists in the tree. The value 23 does not exist in the tree.
+
+A: I would write a function that takes in the argumement of the number you want to search for. Since we know that with binary trees numbers left of the root node are less than the root and numbers greater than the root are the right, I would first check to see if the number entered is equal to the node. If not and the number is smaller, I look through the left nodes. If it matches, return true, if false then the number isn't in the tree. If the number entered in the function is greater than the root, I look to the right. If it matches any node, return true, if false, then the number isn't in the tree.
+
+class Node{
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  } 
+}
+
+
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+  
+  insert(value) {
+    const node = new Node(value);
+
+    if (this.root === null) {
+      this.root = node;
+
+    } else {
+      let current = this.root;
+      while(current) {
+        if(node.value < current.value) {
+          if(!current.left) {
+            current.left = node;
+            break;
+          }
+          current = current.left;
+        } else if (node.value > current.value) {
+          if(!current.right) {
+            current.right = node;
+            break;
+          }
+          current = current.right;
+        } else {
+          break;
+        }
+      }
+    }
+  }
+  
+  find(value) {
+    let current = this.root;
+    while (current) {
+      if (value === current.value) {
+        console.log(value +  " found in tree.");
+        return;
+      }
+      if (value < current.value) {
+        current = current.left;
+      } else {
+        current = current.right;
+      }
+    }
+    console.log(value + " not found in tree.");
+  }
+  
+}
+  
+var binaryTree = new BinarySearchTree();
+
+binaryTree.insert(8);
+binaryTree.insert(3);
+binaryTree.insert(10);
+binaryTree.insert(1);
+binaryTree.insert(6);
+binaryTree.insert(4);
+binaryTree.insert(7);
+binaryTree.insert(14);
+binaryTree.insert(13);
+
+
+binaryTree.find(7);
+binaryTree.find(13);
+
+
+
+2. Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
+
+Example: The distance between the nodes 4 and 10 is 4. The distance between the nodes 8 and 10 is 1. The distance between the nodes 1 and 14 is 4.
+
+To find the distance between 2 nodes (or the number of edges), we first have to find what the lowest common ancestor(LCA) between the 2 nodes. Then we can find the distance between each node and the LCA.
+
+BinarySearchTree.prototype.
+
+A: 
+
+class Node{
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  } 
+}
+
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+  
+  insert(value) {
+    const node = new Node(value);
+
+    if (this.root === null) {
+      this.root = node;
+
+    } else {
+      let current = this.root;
+      while(current) {
+        if(node.value < current.value) {
+          if(!current.left) {
+            current.left = node;
+            break;
+          }
+          current = current.left;
+        } else if (node.value > current.value) {
+          if(!current.right) {
+            current.right = node;
+            break;
+          }
+          current = current.right;
+        } else {
+          break;
+        }
+      }
+    }
+  }
+  
+  find(value) {
+    let current = this.root;
+    while (current) {
+      if (value === current.value) {
+        console.log(value +  " found in tree.");
+        return;
+      }
+      if (value < current.value) {
+        current = current.left;
+      } else {
+        current = current.right;
+      }
+    }
+    console.log(value + " not found in tree.");
+  }
+  
+  getDistance(n1, n2) {
+    let ancestor = this.getLCA(n1, n2);
+    let depth1 = this.getDepth(ancestor, n1); 
+    let depth2 = this.getDepth(ancestor, n2);
+    let distance = depth1 + depth2;
+    return (distance <= 0 ? distance + 1 : distance);
+  }
+  
+  getLCA(n1, n2) {
+    return this.lowestCommonAncestor(this.root, n1, n2);
+  }
+  
+  lowestCommonAncestor(root, n1, n2) {
+    // empty tree
+    if (root == null) {
+      return null;
+    }
+
+    if (root.value == n1 || root.value == n2) {
+      return root;
+    }
+
+    let left = this.lowestCommonAncestor(root.left, n1 , n2);
+    let right = this.lowestCommonAncestor(root.right, n1, n2);
+    
+    if (left && right) {
+      return root;
+    } 
+
+    return (left) ? left : right;
+  }
+
+  getDepth(current, target) {
+    if (current == null) {
+      return -1;
+    }
+    if (current.value == target) {
+      return 0;
+    }
+
+    let left = this.getDepth(current.left, target);
+    let right = this.getDepth(current.right, target);
+
+
+    if (left == -1 && right == -1){
+      return -1;
+    }
+    
+    return (left < right ) ? right + 1: left + 1;
+  }
+}
+
+
+var binaryTree = new BinarySearchTree();
+
+binaryTree.insert(8);
+binaryTree.insert(3);
+binaryTree.insert(10);
+binaryTree.insert(1);
+binaryTree.insert(6);
+binaryTree.insert(4);
+binaryTree.insert(7);
+binaryTree.insert(14);
+binaryTree.insert(13);
+
+
+ console.log(binaryTree.getDistance(8,10)); // returns 1
+ console.log(binaryTree.getDistance(1,13)); // returns 5  
+ console.log(binaryTree.getDistance(4,10)); // returns 4
+ console.log(binaryTree.getDistance(1,14)); // returns 4
+ console.log(binaryTree.getDistance(4,7));  // returns 2
+ console.log(binaryTree.getDistance(7,13)); // returns 6 
+
+
+
+
+
+
