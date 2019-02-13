@@ -43,7 +43,6 @@ A:
 var makeHashTable = function(max) {
     var storage = [],
         hashTableMethods = {
-
             createHashIndex: function(key) {
                 var hash = 0;
                 for (var i = 0; i < key.length; i++) {
@@ -54,45 +53,47 @@ var makeHashTable = function(max) {
                 return Math.abs(hash % max);
             },
 
-            insertCustomer: function(key, value) {
-                if (key === undefined || value === undefined || key.length === 0 || value.length === 0)
-                    throw ('Insertion of undefined not possible')
+            insertCustomer: function(name, address, phone) {
+              //var obj = {name: '', address};
+                if (name === undefined || address === undefined || phone === undefined ||
+                    name.length === 0 || address.length === 0 || phone.length === 0)
+                    throw ('Insertion of undefined not possible');
                 else {
-                    var hashIndex = this.createHashIndex(key);
-                    storage[hashIndex] = value;
+                    var hashIndex = this.createHashIndex(phone);
+                    storage[hashIndex] = {name: name, address : address, phone: phone};
                 }
                 return this;
             },
 
             retrieveCustomer: function(key) {
-                var hashIndex = this.createHashIndex(key);
-                return key + ': ' + storage[hashIndex];
+              var hashIndex = this.createHashIndex(key);
+              if (storage[hashIndex]) {
+                return Object.values(storage[hashIndex]);
+              } else {
+                throw("Customer doesn't exist in table.");
+              }
             },
-
         };
 
     return hashTableMethods;
 };
 
-var customers = {
-  1234567890: ['John Doe', '123 Main St'],
-  1111111111: ['Jane Bass', '456 Circle Blvd'],
-  2222222222: ['Karen Jones', '789 Table Ct'],
-  3333333333: ['Mike Smith', '198 N West Rd'],
-  4444444444: ['Jacki White', '872 Apple Dr'],
-  5555555555: ['Frank Ocean', '2381 Orange St'],
-};
-
 var customersHashTable = makeHashTable(10000);
 
-for (var key in customers) {
-    customersHashTable.insertCustomer(key, customers[key]);
-}
+customersHashTable.insertCustomer('John Doe', '123 Main St', '1234567890');
+customersHashTable.insertCustomer('Jane Bass', '456 Circle Blvd', '1111111111');
+customersHashTable.insertCustomer('Karen Jones', '789 Table Ct', '2222222222');
+customersHashTable.insertCustomer('Mike Smith', '198 N West Rd', '3333333333');
+customersHashTable.insertCustomer('Jacki White', '872 Apple Dr', '4444444444');
+customersHashTable.insertCustomer('Frank Ocean', '2381 Orange St', '5555555555');
 
-console.log(customersHashTable.retrieveCustomer('5555555555'));
-// Output: "5555555555: Frank Ocean,2381 Orange St"
+console.log(customersHashTable.retrieveCustomer('1234567890'));
+// Output: ["John Doe", "123 Main St", "1234567890"]
 console.log(customersHashTable.retrieveCustomer('2222222222'));
-// Output: "2222222222: Karen Jones,789 Table Ct"
+// Output: ["Karen Jones", "789 Table Ct", "2222222222"]
+console.log(customersHashTable.retrieveCustomer('77777'));
+// Ouput: "error"
+// "Uncaught Customer doesn't exist in table. (line 58)"
 
 
 
