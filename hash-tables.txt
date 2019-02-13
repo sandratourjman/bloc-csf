@@ -54,7 +54,6 @@ var makeHashTable = function(max) {
             },
 
             insertCustomer: function(name, address, phone) {
-              //var obj = {name: '', address};
                 if (name === undefined || address === undefined || phone === undefined ||
                     name.length === 0 || address.length === 0 || phone.length === 0)
                     throw ('Insertion of undefined not possible');
