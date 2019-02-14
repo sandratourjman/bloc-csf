@@ -1,0 +1,69 @@
+### Exercises
+
+> 1. Using proper pseudo-code, describe the following primitive algorithms:
++ Making coffee;
+
+FUNCTION
+	IF (electic kettle is empty)
+		Add water
+	END IF
+	Turn on Kettle
+	Add 1 scoop instant coffee to cup
+	Add 2 scroops of creamer to cup
+	Add 2 splendas to cup
+
+	IF (water boiled)
+		Add hot water to cup
+	END IF
+END FUNCTION
+	
+
++ Washing dishes;
+
+FUNCTION
+ IF (dirty dishes > 0)
+ 	Fill sink with water
+ 	Add soap to water
+ 	WHILE (dirty dishes > 0)
+ 		Add dishes to sink
+ 	END WHILE
+ END IF
+ FOREACH (dirty dish)
+ 	Scrub dish with sponge
+ 	Rinse off dish with hot water
+ 	Add dish to drying rack
+ END FOREACH
+END FUNCTION
+
++ A choice of your own: Making a peanut butter and jelly sandwich
+
+FUNCTION
+	IF (hungry)
+		Grab 2 pieces of bread
+		WHILE (first piece of bread is not covered with peanut butter on one side)
+			Spread peanut butter on one side of first piece of bread
+		END WHILE
+
+		WHILE (second piece of bread is not covered with jelly on one side)
+			Spread jelly on one side of second piece of bread
+		END WHILE
+		Take piece of bread with jelly facing down and place on top of second piece of bread with peanut butter facing up
+		Slice in half
+		Eat sandwich
+	END IF
+END FUNCTION
+
+> 2. As with the knot algorithm, there may be more than one way to solve the problem. It is essential to try to pick the best algorithm for a situation. Name three companies who created an algorithm that made them successful, e.g., Google's search algorithm. It doesn't need to be a tech example (such as a recipe or manufacturing a product). Google's algorithm produces more relevant results than other search engines; what about each of your cases make them stand out?
+
+A:
+
+Amazon - Amazon changed how consumers do their shopping, forcing brick and mortar stores to evaluate how they reach the consumer so that they could keep up with Amazon
+
+Uber/Lyft - These two companies has made the taxi business obsolete. Customers can request a ride directly from their cell phone, shows them real-time when the driver will arrive, who the driver is, and can pay directly through the app.  
+
+Warby Parker - This company changed how we order prescription glasses, offering direct-to-consumer model that comes at an afford price, without the markup that eye glasses providers add in to the cost of the frames. 
+
+> 3. Hypothesize about what constitutes an efficient algorithm versus an inefficient algorithm.
+
+A: An efficient algorithm is one that is optimizes time and uses less memory to execute. It has consise and clear steps and has less errors. An inefficient algorithm is does not optimize time and uses more memory. It has more repeating code and loops that take too long to iterate through data. It also has more errors/bugs and does not take clear steps to solve a problem. 
+
