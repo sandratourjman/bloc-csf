@@ -1,0 +1,81 @@
+### Exercises
+
+#### Short Answer
+
+> 1. What is a real-life scenario that uses linear search?
+
+A: Say you have a stack of 50 books that are not placed in alphabetical order. You need to find a specific book so you start at the very top of the stack and go down book by book until you find the one you are searching for. That would be a linear search.
+
+> 2. What is a real-life scenario that uses binary search?
+
+A: Using the example from before, say you have 50 books but they are in alphabetical order. To implement a binary search, you would locate the middle book in the stack. If that is the book you are looking for, you are done with your search. If not, you compare to see if the book your searching for is greater or less than that. If it's less, you can disregard all books to the left and begin with the same process of finding the middle book and comparing to the book you are looking for until you get to your desired book. 
+
+> 3. Given the alphabetically sorted collection in this checkpoint, how many iterations would it take to find the value G using linear search?
+
+A: It would take 7 iterations to get to the value of G using linear search.
+
+> 4. Given the alphabetically sorted collection in this checkpoint, how many iterations would it take to find the value G using binary search?
+
+A: Using binary search, it would take 3 iterations to locate the value of G. On the first iteration, A is the low D is the mid and G is the high. G is greater than D so everything left of D (including D) is disregarded. On the second iteration, E is low F is mid and G is high. G is greater than F so everything left of F (including F) is disregarded. On the third iteration, G is the low, mid, and high. G is equal to G so we are finished with the search
+
+> 5. Given an unsorted collection of a million items, which algorithm would you choose between linear search and binary search? Explain your reasoning.
+
+A: I would select linear search because binary search only works with sorted colleciton of items. If we tried to implement binary search and the number is greater than the midpoint, all data to the left is disregarded. But since it's not sorted, the desired number could be to the left so you would loop until the end and not find the number.
+
+> 6. Given a sorted collection of a million items, which algorithm would you choose between linear search and binary search? Explain your reasoning.
+
+A: For a sorted collection, I would choose binary search as it is much faster than linear search. If the number we are looking for is the last number, that would mean 1 million iterations in a linear search. With binary search, we are halving the data set each time we loop to find the desired number. 
+
+#### Programming Assignment
+
+> 1. You and a friend have set a wager to see who can find the word "Albatross" in the dictionary the fastest. Write a program to allow you to win the bet.
+
+A: // dictionaries are sorted in alphabetical order so I'll use binary search
+
+let animals = ['Aardvark', 'Ant', 'Albatross', 'Border Collie', 'Cow', 'Dolphin', 'Golden Retriever', 'Tiger'];
+
+function dictionarySearch(array, word) {
+	let low = array[0];
+	let high = array[array.length - 1];
+
+	while (low <= high) {
+        let mid = Math.round((array.indexOf(low) + array.indexOf(high)) / 2);
+
+		if( array[mid] > word ) {
+			high = array[mid - 1];
+		} else if( array[mid] < word) {
+			low = array[mid + 1];
+		} else {
+			return array[mid];
+		}
+	}
+	return "Word not found in list";
+}
+
+
+console.log(dictionarySearch(animals, 'Albatross')); // "Albatross"
+console.log(dictionarySearch(animals, 'Cat')); // "Word not found in list"
+
+
+> 2. You work at a pet store, and a child has asked you to net the only white-spotted goldfish from the fish tank. Write a program that will help you net the right fish.
+
+A: // we don't know if it's sorted list so I'll use linear search
+
+let fishes = ['Siamese fighting fish', 'Guppy', 'Goldfish', 'Carp', 'Atlantic Cod', 'White-spotted goldfish', 'Clownfish'];
+
+
+function fishSearch(arr, fish) {
+	let result = null;
+	for (let i = 0; i < arr.length; i++) {
+		if(arr[i] === fish) {
+			result = "I found the " + arr[i];
+            break;
+		} else {
+			result = "Sorry, the fish is not in the tank";
+		}
+	}
+	return result;
+}
+
+console.log(fishSearch(fishes,'White-spotted goldfish'));
+console.log(fishSearch(fishes,'Salmon'));
