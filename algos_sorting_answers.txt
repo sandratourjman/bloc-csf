@@ -1,0 +1,65 @@
+### Exercises
+
+
+> 1. Write pseudocode for bubble sort.
+
+A: 
+FUNCTION bubbleSort(collection) 
+	REPEAT
+		SET swapped to false
+
+		FOR i = FIRST INDEX of collection to LAST INDEX of collection
+			IF collection[i] > collection[i + 1] THEN
+				SET temp to collection[i]
+				SET collection[i] to collection[i+1]
+				SET collection[i+1] to temp
+				SET swapped to true
+			END IF
+		END FOR
+	UNTIL swapped is FALSE
+
+	RETURN collection
+END FUNCTION
+
+
+> 2. Write pseudocode for quicksort.
+
+A: 
+FUNCTION quickSort(collection)
+	IF collection length <= 1
+		RETURN collection
+	ELSE
+		SET left, right to empty arrays
+		SET pivot to last item in collection
+		SET length to length of collection
+
+		FOR i = 0 to length - 1
+			IF collection[i] <= pivot
+				PUSH collection[i] to last index of left
+			ELSE
+				PUSH collection[i] to last index of right
+			END IF
+		END FOR
+		RETURN quickSort(left).concat(pivot, quickSort(right))
+	END IF
+END FUNCTION
+
+> 3. We talked about time complexity in a previous checkpoint, and how to get an idea of the efficiency of an algorithm. After looking at the pseudocode for the above sorting methods, identify why merge sort and quick sort are much more efficient than the others. Walking through each algorithm with a few sample collections may help.
+
+A: 
+
+| Algorithm | Time Complexity |  |
+|-----------|-----------------|------------------------|
+| Insertion | O (n^2) | Quadratic Growth Rate |
+| Selection | O(n^2) | Quadratic Growth Rate |
+| Bubble | O (n^2) | Quadratic Growth Rate |
+| Merge | O (n log n) | Log-Linear Growth Rate |
+| Quick | O (n log n) | Log-Linear Growth Rate |
+
+Quick and merge sort are much more efficient thant the others because the time complexity of those algorithms is O (n log n). As we learned previously, a log-linear growth rate halves the data each time for each of n times. Both of this algorithms have a divide and conquer approach. For the rest of the algorithms, they have a quadratic growth rate. A quadratic growth rate is directly proportional to the square of the size of the input data set. This type of algorithm is often seen when there is a nested for loop. Selection sort pseudocode has a next for loop. Bubble sort may run through the collection of data several times before sorting is complete.
+
+> 4. All of the sorts addressed in this checkpoint are known as comparison sorts. Research bucket sort and explain how it works. What is the ideal input for bucket sort?
+
+A: Bucket sort, or bin sort, works by distributing the elements in a collection into a number of buckets. Then each bucket is sorted individually, either using a different sorthing algorithm, or by recusively applying the bin sorting algorithm. Bucket sort performs best when the data is evenly distributed over a range of buckets; it performs the worst when all the elements are in the same bucket.
+
+
